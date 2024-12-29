@@ -1,0 +1,31 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        # My approach:
+        # - The task is to check if two strings are isomorphic. Two strings are isomorphic if each character in the first string can be mapped to a character in the second string such that no two characters map to the same character.
+        # - We use two dictionaries (memo1 and memo2) to store the mapping between characters from the first string (s) to the second string (t) and vice versa.
+        # - As we iterate through the strings, we check:
+        #     - If a character from 's' is already mapped to a different character in 't'.
+        #     - If a character from 't' is already mapped to a different character in 's'.
+        # - If any of these conditions is true, we return False, indicating that the strings are not isomorphic.
+        # - If we successfully complete the iteration without encountering conflicts, we return True.
+        
+        # Time complexity:
+        # - The time complexity is O(n), where n is the length of the strings s and t. We only iterate through the strings once, performing constant-time operations for each character.
+        
+        memo1 = {}
+        memo2 = {}
+        
+        for i in range(len(s)):
+            temp1 = s[i]
+            temp2 = t[i]
+            
+            # Check for existing conflicting mappings
+            if ((temp1 in memo1 and memo1[temp1] != temp2) or 
+                (temp2 in memo2 and memo2[temp2] != temp1)):
+                return False
+            
+            # Store the mapping
+            memo1[temp1] = temp2
+            memo2[temp2] = temp1
+        
+        return True

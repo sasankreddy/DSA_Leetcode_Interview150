@@ -1,0 +1,41 @@
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        # My approach:
+        # - The task is to convert the string `s` into a zigzag pattern with `numRows` rows and then read it row by row.
+        # - Use an array `rows` of size `numRows` to store characters for each row.
+        # - Traverse the string and distribute characters into the respective rows while maintaining the zigzag order.
+        # - Adjust the direction (`inc`) when the traversal reaches the top or bottom row.
+        # - Finally, concatenate all rows to form the resulting string.
+
+        # Time complexity:
+        # - The traversal of the string takes O(n), where `n` is the length of the string.
+        # - Joining the rows to form the final string takes O(n).
+        # - Overall, the time complexity is O(n).
+
+        # Space complexity:
+        # - The `rows` list takes O(min(n, numRows)) space, where `n` is the string length.
+        # - The final string also takes O(n) space.
+        # - Overall, the space complexity is O(n).
+
+        if numRows == 1:
+            return s  # Special case: no zigzagging needed if only one row.
+
+        rows = [""] * numRows  # Initialize rows to store characters for each row.
+
+        add = 0  # Tracks the current row being filled.
+        inc = 1  # Direction of traversal: 1 for downward, -1 for upward.
+
+        for i in s:
+            rows[add] += i  # Append the current character to the corresponding row.
+
+            # Change direction at the first or last row.
+            if add == 0:
+                inc = 1  # Move downward.
+            elif add == numRows - 1:
+                inc = -1  # Move upward.
+
+            add += inc  # Update the current row based on the direction.
+
+        # Concatenate all rows to form the final string.
+        return "".join(rows)
+    

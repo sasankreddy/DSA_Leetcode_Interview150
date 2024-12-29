@@ -1,0 +1,39 @@
+from typing import List
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # My approach:
+        # - The goal is to find two distinct indices in the list `nums` such that their values add up to the target.
+        # - I sort the list `nums` to easily use a two-pointer technique to find the pair.
+        # - First, I initialize two pointers, `i` (start) and `j` (end). These will move towards each other while checking
+        #   if the sum of the elements at the pointers equals the target.
+        # - If the sum is equal to the target, I find the original indices of the two numbers in the unsorted list `nums` 
+        #   and return them.
+        # - If the sum is greater than the target, I move the `j` pointer to the left to decrease the sum.
+        # - If the sum is smaller than the target, I move the `i` pointer to the right to increase the sum.
+        # - The time complexity is O(n log n) because of sorting the list, and the space complexity is O(n) because we store the 
+        #   indices of the numbers.
+
+        l = []
+        i = 0
+        j = len(nums) - 1
+        num = sorted(nums)
+
+        while i < j:
+            if num[i] + num[j] == target:
+                a = num[i]
+                b = num[j]
+                for idx in range(len(nums)):
+                    if nums[idx] == a:
+                        l.append(idx)
+                        continue
+                    if nums[idx] == b:
+                        l.append(idx)
+                return l  # Return as soon as the pair is found
+            if num[i] + num[j] > target:
+                j -= 1
+            else:
+                i += 1
+
+        return l  # In case no valid pair is found

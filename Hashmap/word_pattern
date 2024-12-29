@@ -1,0 +1,29 @@
+class Solution:
+    def wordPattern(self, p: str, s: str) -> bool:
+        # My approach:
+        # - We want to check if a pattern p corresponds to a string s. Specifically, we want to ensure that each character in p maps to a unique word in s, and vice versa.
+        # - First, we split the string s into a list of words.
+        # - If the length of pattern p does not match the number of words in s, we return False.
+        # - If the number of unique characters in p does not match the number of unique words in s, we return False (i.e., if there is no 1-to-1 mapping).
+        # - We then iterate through each word and its corresponding character in p:
+        #     - We use a dictionary (w_to_p) to track the mapping of words to characters.
+        #     - If a word has already been mapped to a different character, or if a character has already been mapped to a different word, we return False.
+        # - If all checks pass, we return True, indicating that the pattern matches the string.
+
+        # Time complexity:
+        # - The time complexity is O(n), where n is the length of the string s. We split the string into words, which takes linear time, and we iterate through the list of words and the pattern once.
+        
+        words, w_to_p = s.split(' '), dict()
+
+        if len(p) != len(words): 
+            return False
+        if len(set(p)) != len(set(words)): 
+            return False 
+        
+        for i in range(len(words)):
+            if words[i] not in w_to_p: 
+                w_to_p[words[i]] = p[i]
+            elif w_to_p[words[i]] != p[i]: 
+                return False
+
+        return True

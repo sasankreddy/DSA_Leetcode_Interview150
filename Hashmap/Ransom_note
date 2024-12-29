@@ -1,0 +1,19 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        # My approach:
+        # - The task is to check if we can construct the ransom note from the magazine.
+        # - We iterate through each character in the ransom note.
+        # - For each character, we check if it exists in the magazine. If it does, we remove the character from the magazine (to simulate using it for the ransom note).
+        # - If at any point the character does not exist in the magazine or we cannot remove it, we return False.
+        # - If we can successfully iterate through all characters in the ransom note, return True.
+        
+        # Time complexity:
+        # - The time complexity is O(n * m), where n is the length of the ransom note and m is the length of the magazine.
+        #   - In each iteration, the `replace` operation scans the magazine string (O(m)), making the approach less efficient for large strings.
+
+        for element in ransomNote: 
+            if element not in magazine:
+                return False
+            else:
+                magazine = magazine.replace(element, "", 1)  # Remove the first occurrence of the character
+        return True

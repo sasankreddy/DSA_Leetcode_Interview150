@@ -1,0 +1,25 @@
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # My approach:
+        # - The goal is to group anagrams together, meaning that strings with the same characters (but possibly in a different order) 
+        #   should be placed in the same group.
+        # - I use a defaultdict, where the key is a sorted version of the string and the value is a list of anagrams (strings) that 
+        #   match that sorted version.
+        # - For each string in the input list `strs`, I sort the string and use the sorted string as the key in the defaultdict.
+        # - If the sorted string is already a key in the dictionary, the current string is added to the list of anagrams for that key.
+        # - Finally, I return all the values from the defaultdict, which represent the groups of anagrams.
+
+        # Time complexity:
+        # - Sorting each string takes O(k * log k), where k is the length of the string.
+        # - Since there are `n` strings in the input list, the overall time complexity is O(n * k * log k), where n is the number 
+        #   of strings in the input and k is the average length of the strings.
+
+        anagrams = defaultdict(list)
+        for i in strs:
+            s = "".join(sorted(i))  # Sort each string and use the sorted string as a key
+            anagrams[s].append(i)
+        
+        return list(anagrams.values())  # Return the grouped anagrams as a list of lists

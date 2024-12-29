@@ -1,0 +1,30 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        # My approach:
+        # - The task is to reverse the order of words in the string `s`, where words are separated by spaces.
+        # - Traverse the string character by character to identify words.
+        # - Append each word to the result string `res`, placing it at the beginning to reverse the order.
+        # - Handle spaces between words by adjusting the starting index `temp` appropriately.
+
+        # Time complexity:
+        # - The traversal of the string is linear, taking O(n), where `n` is the length of the string.
+        # - String concatenation for the result occurs for each word, resulting in O(k), where `k` is the total number of words.
+        # - Overall, the time complexity is O(n + k).
+
+        # Space complexity:
+        # - The result string `res` takes O(n) space, as it stores the reversed version of the original string.
+
+        res = ""  # This will store the reversed words.
+        i = 0  # Pointer to traverse the string.
+        temp = 0  # Start index of the current word.
+
+        while i < len(s):
+            if s[i] == " ":  # A space indicates the end of a word.
+                # Prepend the current word to the result.
+                res = " " + s[temp:i] + res
+                temp = i + 1  # Move to the start of the next word.
+            i += 1
+
+        # Append the last word (as it won't be followed by a space).
+        res = s[temp:i] + res
+        return res

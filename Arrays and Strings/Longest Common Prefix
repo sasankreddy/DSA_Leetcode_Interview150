@@ -1,0 +1,33 @@
+from typing import List
+
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        # My approach:
+        # - The task is to find the longest common prefix among the strings in the list `strs`.
+        # - Start by identifying the shortest string in the list, as the common prefix cannot be longer than this string.
+        # - Compare each character of the shortest string with the corresponding characters in all other strings.
+        # - If a mismatch is found, return the prefix built so far.
+        # - If no mismatch is found, continue until the end of the shortest string.
+
+        # Time complexity:
+        # - Finding the shortest string takes O(n) time, where `n` is the number of strings.
+        # - Comparing characters for the common prefix takes O(n * m), where `m` is the length of the shortest string.
+        # - Overall, the time complexity is O(n * m).
+
+        s = strs[0]  # Initialize with the first string.
+        s1 = ""  # To store the longest common prefix.
+
+        # Find the shortest string in the list.
+        for i in strs:
+            if len(i) <= len(s):
+                s = i
+
+        # Compare characters of the shortest string with others.
+        for j in range(len(s)):
+            for i in strs:
+                if i[j] != s[j]:  # If there's a mismatch, return the prefix built so far.
+                    return s1
+            s1 += s[j]  # Add the character to the prefix if all strings match.
+
+        return s1  # Return the common prefix.
